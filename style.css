@@ -147,7 +147,13 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
 }
 .map-card{grid-area:map}
 .task-card{grid-area:task;display:flex;flex-direction:column}
-.chat-card{grid-area:chat;display:flex;flex-direction:column}
+.chat-card{
+  grid-area:chat;
+  display:flex;flex-direction:column;
+  position:sticky;top:74px;align-self:start;
+  height:calc(100vh - 104px);
+  min-height:460px;max-height:840px;
+}
 
 .card{
   position:relative;
@@ -728,7 +734,8 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
       "task";
   }
   .map{height:330px}
-  .chat-body{height:300px}
+  .chat-body{height:340px;flex:0 0 auto}
+  .chat-card{position:static;align-self:stretch;height:auto;min-height:0;max-height:none}
   .task-list{max-height:none}
 }
 
