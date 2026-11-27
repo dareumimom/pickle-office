@@ -54,8 +54,11 @@
   };
   const CHAR_KEYS = Object.keys(CHARS);
   // 존 안에서 캐릭터가 서는 자리 (같은 존에 여러 명이 와도 겹치지 않게)
-  const SLOTS = [
-    [0.25, 0.62], [0.75, 0.60], [0.30, 0.82], [0.72, 0.82]
+  const SLOTS_WIDE = [
+    [0.17, 0.72], [0.39, 0.72], [0.61, 0.72], [0.83, 0.72]
+  ];
+  const SLOTS_NARROW = [
+    [0.26, 0.46], [0.74, 0.46], [0.26, 0.88], [0.74, 0.88]
   ];
 
   const LS = {
@@ -477,7 +480,7 @@
       let zi = typeof st.zone === 'number' ? st.zone : CHARS[k].zone;
       zi = Math.max(0, Math.min(ZONES.length - 1, zi));
       used[zi] = used[zi] || 0;
-      slotOf[k] = used[zi] % SLOTS.length;
+      slotOf[k] = used[zi] % 4;
       used[zi]++;
     });
 
@@ -490,7 +493,8 @@
       const z = zones[zi];
       if (!z) return;
       const r = z.getBoundingClientRect();
-      const [fx, fy] = SLOTS[slotOf[k]];
+      const set = r.width >= 210 ? SLOTS_WIDE : SLOTS_NARROW;
+      const [fx, fy] = set[slotOf[k] % set.length];
       const x = (r.left - mRect.left) + r.width * fx;
       const y = (r.top - mRect.top) + r.height * fy;
       el.style.left = x + 'px';

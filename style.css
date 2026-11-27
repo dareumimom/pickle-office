@@ -269,6 +269,7 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
 .char[data-char="gemini"] .char-body{animation-delay:1.5s}
 .char:hover .char-body{transform:translateY(-3px) scale(1.06)}
 .char:active .char-body{transform:scale(.94)}
+.char.is-active{z-index:8}
 .char.is-active .char-body{
   box-shadow:0 0 0 3.5px rgba(255,255,255,.9), 0 0 0 6px var(--ring, rgba(247,200,216,.7)), 0 6px 14px rgba(120,95,80,.24);
 }
