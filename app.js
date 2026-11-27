@@ -568,7 +568,8 @@
 
   function renderChat(scroll) {
     const box = $('#chatBody');
-    if (!box) return;
+    const list = $('#chatList');
+    if (!box || !list) return;
     const msgs = Object.values(state.messages || {})
       .filter(m => m && typeof m === 'object')
       .sort((a, b) => (a.ts || 0) - (b.ts || 0));
@@ -576,11 +577,11 @@
     const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 90;
 
     if (!msgs.length) {
-      box.innerHTML = `<div class="chat-empty">아직 대화가 없어요.<br>아래에서 <b>@반짝이</b>처럼 불러 시작해 보세요 ✨</div>`;
+      list.innerHTML = `<div class="chat-empty">아직 대화가 없어요.<br>아래에서 <b>@반짝이</b>처럼 불러 시작해 보세요 ✨</div>`;
       return;
     }
 
-    box.innerHTML = msgs.map(m => {
+    list.innerHTML = msgs.map(m => {
       if (m.who === 'system' || m.kind === 'sys' || m.kind === 'warn') {
         return `<div class="sys${m.kind === 'warn' ? ' warn' : ''}">${esc(m.text)}</div>`;
       }
@@ -612,7 +613,8 @@
   const typingSet = new Set();
   function paintTyping() {
     const box = $('#chatBody');
-    if (!box) return;
+    const list = $('#chatList');
+    if (!box || !list) return;
     typingSet.forEach(key => {
       const c = CHARS[key];
       if (!c) return;
@@ -623,7 +625,7 @@
       el.innerHTML = `<div class="msg-ava" style="--cc:var(--c-${key});--cc-d:var(--c-${key}-d)" aria-hidden="true">${esc(c.glyph)}</div>
         <div class="msg-main"><div class="msg-top"><span class="msg-name">${esc(c.name)}</span><span class="msg-time">답하는 중…</span></div>
         <div class="msg-text">✏️ 생각하고 있어요…</div></div>`;
-      box.appendChild(el);
+      list.appendChild(el);
     });
     if (typingSet.size) box.scrollTop = box.scrollHeight;
   }
