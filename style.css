@@ -138,16 +138,16 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
 .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:18px 16px 40px}
 .grid{
   display:grid;
-  grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);
   grid-template-areas:
-    "map  task"
-    "chat chat";
+    "map  chat"
+    "task chat";
   gap:16px;
   align-items:stretch;
 }
 .map-card{grid-area:map}
 .task-card{grid-area:task;display:flex;flex-direction:column}
-.chat-card{grid-area:chat}
+.chat-card{grid-area:chat;display:flex;flex-direction:column}
 
 .card{
   position:relative;
@@ -216,9 +216,9 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .zone-prop{
-  position:absolute;right:9px;bottom:7px;z-index:1;
+  position:absolute;right:11px;bottom:9px;z-index:1;
   display:flex;flex-direction:column;align-items:center;
-  font-size:19px;opacity:.72;filter:saturate(.9);
+  font-size:27px;line-height:1;opacity:.85;filter:saturate(.92);
   animation:propBob 6s ease-in-out infinite;
 }
 .zone[data-zone="1"] .zone-prop{animation-delay:1.2s}
@@ -387,6 +387,7 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
   scrollbar-width:thin;
 }
 .task-list::-webkit-scrollbar{width:6px}
+.task-list::-webkit-scrollbar-track{background:transparent}
 .task-list::-webkit-scrollbar-thumb{background:#EDDFD2;border-radius:9px}
 .task{
   display:flex;align-items:flex-start;gap:9px;
@@ -454,7 +455,8 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
    ③ 채팅
    ========================================================= */
 .chat-body{
-  height:330px;
+  flex:1 1 auto;
+  min-height:300px;
   overflow-y:auto;
   padding:4px 4px 8px 2px;
   display:flex;flex-direction:column;gap:10px;
@@ -462,6 +464,7 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
   scrollbar-width:thin;
 }
 .chat-body::-webkit-scrollbar{width:6px}
+.chat-body::-webkit-scrollbar-track{background:transparent}
 .chat-body::-webkit-scrollbar-thumb{background:#EDDFD2;border-radius:9px}
 
 .msg{display:flex;gap:8px;align-items:flex-start;max-width:100%}
@@ -754,7 +757,7 @@ button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit
   .roster-zone{font-size:8.5px}
   .roster-dot{width:19px;height:19px;flex-basis:19px;font-size:9.5px;border-radius:7px}
 
-  .chat-body{height:46vh;min-height:260px}
+  .chat-body{height:46vh;flex:0 0 auto;min-height:260px}
   .msg-text{font-size:12.3px;padding:7px 10px}
   .chips{gap:5px;padding:8px 0 6px}
   .chip{font-size:10.5px;padding:5px 9px}
