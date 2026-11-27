@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#FFF9F3" />
+<title>🏢 다름이맘 합동 비서실</title>
+<meta name="description" content="반짝이 · 신비 · GPT · 제미나이가 함께 일하는 다름이맘 합동 비서실" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%A2%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<!-- 배경 장식 -->
+<div class="bg-deco" aria-hidden="true">
+  <span class="deco d1">🌸</span>
+  <span class="deco d2">☁️</span>
+  <span class="deco d3">✨</span>
+  <span class="deco d4">🎀</span>
+  <span class="deco d5">☁️</span>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./">
+      <span class="brand-mark">🏢</span>
+      <span class="brand-text">
+        <span class="brand-title">다름이맘 합동 비서실</span>
+        <span class="brand-sub">Pickle&nbsp;·&nbsp;Office</span>
+      </span>
+    </a>
+    <div class="topbar-right">
+      <button id="connBadge" class="badge" type="button" title="연결 상태">
+        <span class="dot"></span>
+        <span class="badge-label">로컬 모드</span>
+      </button>
+      <button id="settingsBtn" class="icon-btn" type="button" aria-label="설정 열기" title="설정">
+        <span aria-hidden="true">⚙️</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+
+    <!-- ① 오피스 맵 -->
+    <section class="card map-card" aria-labelledby="mapTitle">
+      <div class="card-head">
+        <h2 id="mapTitle"><span aria-hidden="true">🗺️</span> 오피스 맵</h2>
+        <span class="card-hint" id="mapHint">캐릭터를 눌러 보세요</span>
+      </div>
+
+      <div class="map" id="map">
+        <div class="zone" data-zone="0">
+          <div class="zone-top"><span class="zone-emoji">📝</span><span class="zone-name">블로그 데스크</span></div>
+          <div class="zone-prop">🖥️<span class="prop-note">글쓰기</span></div>
+        </div>
+        <div class="zone" data-zone="1">
+          <div class="zone-top"><span class="zone-emoji">💬</span><span class="zone-name">회의실</span></div>
+          <div class="zone-prop">🗓️<span class="prop-note">아이디어</span></div>
+        </div>
+        <div class="zone" data-zone="2">
+          <div class="zone-top"><span class="zone-emoji">🛒</span><span class="zone-name">심부름실</span></div>
+          <div class="zone-prop">📦<span class="prop-note">체험단·후기</span></div>
+        </div>
+        <div class="zone" data-zone="3">
+          <div class="zone-top"><span class="zone-emoji">☕</span><span class="zone-name">휴게실</span></div>
+          <div class="zone-prop">🍰<span class="prop-note">충전</span></div>
+        </div>
+        <!-- 캐릭터는 app.js가 여기에 추가합니다 -->
+      </div>
+
+      <ul class="roster" id="roster" aria-label="비서실 멤버"></ul>
+    </section>
+
+    <!-- ② 오늘의 할 일 -->
+    <section class="card task-card" aria-labelledby="taskTitle">
+      <div class="card-head">
+        <h2 id="taskTitle"><span aria-hidden="true">✅</span> 오늘의 합동 할 일</h2>
+        <span class="task-count" id="taskCount">0 / 0</span>
+      </div>
+
+      <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+      <ul class="task-list" id="taskList"></ul>
+
+      <form class="task-add" id="taskForm" autocomplete="off">
+        <input id="taskInput" type="text" placeholder="할 일 추가 (예: 구매후기 10건)" maxlength="80" aria-label="새 할 일" />
+        <select id="taskOwner" aria-label="담당">
+          <option value="banjjagi">반짝이</option>
+          <option value="sinbi">신비</option>
+          <option value="gpt">GPT</option>
+          <option value="gemini">제미나이</option>
+        </select>
+        <button type="submit" class="btn-mini" aria-label="할 일 추가">＋</button>
+      </form>
+    </section>
+
+    <!-- ③ 합동 채팅방 -->
+    <section class="card chat-card" aria-labelledby="chatTitle">
+      <div class="card-head">
+        <h2 id="chatTitle"><span aria-hidden="true">💌</span> 실시간 합동 채팅방</h2>
+        <span class="card-hint" id="syncHint">이 브라우저에만 저장 중</span>
+      </div>
+
+      <div class="chat-body" id="chatBody" role="log" aria-live="polite" aria-label="대화 목록">
+        <div class="chat-empty" id="chatEmpty" hidden></div>
+      </div>
+
+      <div class="chips" id="chips" aria-label="빠른 멘션">
+        <button class="chip" type="button" data-mention="@반짝이" style="--c:#7FB3F0;--cd:#2F6FB5">@반짝이</button>
+        <button class="chip" type="button" data-mention="@신비" style="--c:#B49BE8;--cd:#6E4FBB">@신비</button>
+        <button class="chip" type="button" data-mention="@GPT" style="--c:#7FD4B8;--cd:#2A9576">@GPT</button>
+        <button class="chip" type="button" data-mention="@제미나이" style="--c:#98A0FF;--cd:#5A5FC7">@제미나이</button>
+      </div>
+
+      <form class="chat-input" id="chatForm" autocomplete="off">
+        <textarea id="chatText" rows="1" placeholder="할 일을 지시해 보세요. 예: @신비 오늘 글 3편 예약해 줘" maxlength="600" aria-label="메시지 입력"></textarea>
+        <button type="submit" class="send-btn" id="sendBtn" aria-label="보내기">
+          <span aria-hidden="true">➤</span>
+        </button>
+      </form>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span class="foot-dot"></span>
+    <span id="footText">로컬 모드 — 이 브라우저에만 기록됩니다.</span>
+    <span class="foot-sep">·</span>
+    <button class="link-btn" id="footSettings" type="button">설정</button>
+  </footer>
+</main>
+
+<!-- ⚙️ 설정 모달 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h2 id="modalTitle"><span aria-hidden="true">⚙️</span> 연결 설정</h2>
+      <button class="icon-btn ghost" id="modalClose" type="button" aria-label="닫기">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <p class="notice">
+        🔒 API 키는 <b>이 브라우저(localStorage)에만</b> 저장되고, 어디로도 보내지 않아요.
+        키를 쓰는 순간에도 해당 AI 회사 서버에만 직접 전달됩니다.
+        이 페이지는 공개 주소라 <b>링크를 아는 사람은 볼 수 있어요</b> — 개인 메모는 올리지 마세요.
+      </p>
+
+      <!-- Firebase -->
+      <section class="fieldset">
+        <h3><span aria-hidden="true">🔥</span> 실시간 DB (Firebase Realtime Database)</h3>
+        <p class="help">
+          URL을 넣으면 반짝이·신비가 같은 방을 함께 봅니다. 주소 뒤에 <code>?db=</code> 를 붙여 들어와도 자동 연결돼요.
+        </p>
+        <div class="row">
+          <input id="dbUrl" type="url" placeholder="https://내프로젝트-default-rtdb.firebaseio.com" spellcheck="false" />
+        </div>
+        <div class="row btns">
+          <button class="btn primary" id="dbSave" type="button">연결</button>
+          <button class="btn" id="dbTest" type="button">연결 확인</button>
+          <button class="btn" id="dbClear" type="button">연결 해제</button>
+        </div>
+        <p class="status" id="dbStatus">연결 안 됨</p>
+
+        <details class="details">
+          <summary>Firebase 준비 방법 &amp; 보안 규칙</summary>
+          <ol class="howto">
+            <li><a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer">Firebase 콘솔</a>에서 프로젝트를 만들고 <b>Realtime Database</b>를 시작합니다.</li>
+            <li>데이터베이스 URL(예: <code>https://abc-default-rtdb.firebaseio.com</code>)을 위에 붙여 넣습니다.</li>
+            <li>규칙(Rules)은 아래처럼 넣으면 이 방만 공유됩니다. (누구나 읽고 쓸 수 있으니 개인정보는 넣지 마세요.)</li>
+          </ol>
+          <pre class="code" id="rulesCode">{
+  "rules": {
+    "office": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}</pre>
+          <button class="btn tiny" id="copyRules" type="button">규칙 복사</button>
+          <p class="help tiny-help">
+            반짝이·신비에게도 이 주소를 알려 주면 같은 방에서 읽고 씁니다 —
+            메시지는 <code>/office/messages/&lt;id&gt;</code>, 할 일은 <code>/office/tasks/&lt;id&gt;</code>,
+            캐릭터 위치는 <code>/office/chars/&lt;이름&gt;</code>.
+          </p>
+        </details>
+      </section>
+
+      <!-- Gemini -->
+      <section class="fieldset">
+        <h3><span aria-hidden="true">✨</span> 제미나이 (Gemini API Key)</h3>
+        <p class="help">키를 넣으면 채팅에서 <b>@제미나이</b>를 부를 때 브라우저에서 바로 답해요. 무료 키도 됩니다.</p>
+        <div class="row">
+          <input id="geminiKey" type="password" placeholder="AIza..." spellcheck="false" autocomplete="off" />
+          <button class="eye" type="button" data-eye="geminiKey" aria-label="키 보기">👁️</button>
+        </div>
+        <div class="row btns">
+          <input id="geminiModel" class="model" type="text" placeholder="gemini-2.5-flash" spellcheck="false" aria-label="제미나이 모델" />
+        </div>
+        <p class="status" id="geminiStatus">키 없음</p>
+      </section>
+
+      <!-- OpenAI -->
+      <section class="fieldset">
+        <h3><span aria-hidden="true">🤖</span> GPT (OpenAI API Key)</h3>
+        <p class="help">키를 넣으면 채팅에서 <b>@GPT</b>를 부를 때 바로 답해요.</p>
+        <div class="row">
+          <input id="openaiKey" type="password" placeholder="sk-..." spellcheck="false" autocomplete="off" />
+          <button class="eye" type="button" data-eye="openaiKey" aria-label="키 보기">👁️</button>
+        </div>
+        <div class="row btns">
+          <input id="openaiModel" class="model" type="text" placeholder="gpt-4o-mini" spellcheck="false" aria-label="GPT 모델" />
+        </div>
+        <p class="status" id="openaiStatus">키 없음</p>
+      </section>
+
+      <div class="modal-foot">
+        <button class="btn primary wide" id="saveAll" type="button">저장하고 닫기</button>
+        <button class="btn danger" id="resetAll" type="button">모두 지우기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
